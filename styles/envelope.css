@@ -88,8 +88,8 @@
   border: 1px solid #D2B07B; border-radius: 48% 52% 49% 51% / 51% 48% 52% 49%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: clamp(1px, calc(var(--env-width) * .004), 3px); white-space: nowrap;
-  background: radial-gradient(ellipse at 28% 20%, rgba(255, 236, 220, .08), transparent 40%), conic-gradient(from 35deg, #6C364E, #834B60, #50273F, #744056, #8B5365, #5B2D45, #6C364E);
-  box-shadow: 0 0 0 3px rgba(179, 139, 76, .24), 2px 6px 9px rgba(80, 39, 63, .3), inset 1px 2px 3px #AD7B8B, inset -2px -3px 4px #3B1D30;
+  background: radial-gradient(ellipse at 28% 20%, rgba(255, 236, 220, .08), transparent 40%), conic-gradient(from 35deg, #721F30, #8C3041, #501322, #792537, #96394A, #601929, #721F30);
+  box-shadow: 0 0 0 3px rgba(179, 139, 76, .24), 2px 6px 9px rgba(80, 19, 34, .3), inset 1px 2px 3px #B86A76, inset -2px -3px 4px #3E0D1A;
   color: #FFF2D9;
   font-family: 'Playfair Display', var(--font-serif); font-style: italic; font-weight: 600;
   font-size: clamp(.6rem, calc(var(--env-width) * .036), 1.65rem); letter-spacing: .01em; line-height: 1.05;

@@ -41,7 +41,7 @@ function buildEvents() {
       root.appendChild(el('h3', 'ev-day', event.day));
       lastDay = event.day;
     }
-    const item = el('section', 'event');
+    const item = el('section', event.cardTone ? `event event--${event.cardTone}` : 'event');
     const head = el('div', 'event-head');
     const icon = el('span', 'ev-emoji', event.emoji);
     icon.setAttribute('aria-hidden', 'true');
