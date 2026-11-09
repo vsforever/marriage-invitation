@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 150" fill="none">
+  <defs>
+    <linearGradient id="petal" x1="230" y1="30" x2="250" y2="106" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDF5"/><stop offset=".55" stop-color="#F7E4DF"/><stop offset="1" stop-color="#DCABB0"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="35" y1="60" x2="445" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B9914F" stop-opacity=".35"/><stop offset=".5" stop-color="#B9914F"/><stop offset="1" stop-color="#B9914F" stop-opacity=".35"/>
+    </linearGradient>
+    <g id="sprig" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M225 110C171 114 110 101 54 65M205 108C172 94 146 66 133 43M166 102C126 111 88 105 54 92" stroke="url(#gold)" stroke-width="1.7"/>
+      <g fill="#A9B6A0" fill-opacity=".7" stroke="#8E9B7C" stroke-width=".8">
+        <path d="M181 105Q163 83 151 85Q153 102 181 105Z"/>
+        <path d="M157 99Q143 115 124 109Q134 96 157 99Z"/>
+        <path d="M133 93Q111 73 101 77Q109 93 133 93Z"/>
+        <path d="M106 81Q88 88 72 77Q88 71 106 81Z"/>
+        <path d="M160 79Q145 60 146 51Q160 58 160 79Z"/>
+        <path d="M137 55Q122 48 121 35Q134 40 137 55Z"/>
+        <path d="M108 107Q94 117 80 110Q91 101 108 107Z"/>
+      </g>
+      <g stroke="#C29499" stroke-width="1">
+        <path d="M77 78Q58 72 57 54Q75 59 77 78Z" fill="#F3D8D9"/>
+        <path d="M87 110Q72 122 59 110Q73 103 87 110Z" fill="#F8E9E1"/>
+        <path d="M135 47Q118 35 125 21Q142 30 135 47Z" fill="#F3D8D9"/>
+      </g>
+      <g fill="#C7A363"><circle cx="47" cy="61" r="2.3"/><circle cx="104" cy="48" r="2"/><circle cx="92" cy="125" r="1.6"/></g>
+    </g>
+  </defs>
+  <use href="#sprig"/><use href="#sprig" transform="translate(480 0) scale(-1 1)"/>
+  <g fill="url(#petal)" stroke="#B9914F" stroke-width="1.1" stroke-linejoin="round">
+    <path d="M240 106C209 103 188 85 192 65C218 65 236 81 240 106Z"/>
+    <path d="M240 106C271 103 292 85 288 65C262 65 244 81 240 106Z"/>
+    <path d="M240 106C215 91 205 64 216 44C237 59 245 82 240 106Z"/>
+    <path d="M240 106C265 91 275 64 264 44C243 59 235 82 240 106Z"/>
+    <path d="M240 106C222 83 224 51 240 27C256 51 258 83 240 106Z"/>
+  </g>
+  <path d="M240 44V95M205 78Q218 83 231 99M275 78Q262 83 249 99" stroke="#C29499" stroke-width=".8" opacity=".7"/>
+  <path d="M222 109Q240 98 258 109Q240 121 222 109Z" fill="#D6B779" stroke="#B9914F"/>
+  <g stroke="#C7A363" stroke-width="1" stroke-linecap="round">
+    <path d="M240 5V15M235 10H245M184 32V38M181 35H187M296 32V38M293 35H299"/>
+    <path d="M225 128Q240 138 255 128"/>
+  </g>
+  <circle cx="240" cy="141" r="2" fill="#C7A363"/>
+</svg>
