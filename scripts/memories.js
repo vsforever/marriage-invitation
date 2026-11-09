@@ -10,6 +10,27 @@
   const buttons = [...section.querySelectorAll('[data-memory-index]')];
   const current = section.querySelector('[data-memory-current]');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function loadPhotos() {
+    section.querySelectorAll('img[data-src]').forEach((image) => {
+      image.srcset = image.dataset.srcset;
+      image.src = image.dataset.src;
+      delete image.dataset.srcset;
+      delete image.dataset.src;
+    });
+  }
+
+  // Warm every wipe layer just before the album enters the invitation's viewport.
+  // Native lazy loading alone sees all the stacked photos at the same position.
+  if (typeof IntersectionObserver === 'function') {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      loadPhotos();
+      observer.disconnect();
+    }, { root: scroller, rootMargin: '600px 0px' });
+    observer.observe(section);
+  } else loadPhotos();
+
   // Keep the caption readable instead of slicing two different sentences together.
   const caption = document.createElement('div');
   caption.className = 'memories-caption';

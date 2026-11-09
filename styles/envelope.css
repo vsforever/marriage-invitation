@@ -15,12 +15,19 @@
 }
 #envelope.show { opacity: 1; visibility: visible; }
 #envelope::before {
-  inset: 0; filter: none;
-  /* Fill the screen while retaining the bouquet on narrow displays. */
+  inset: -12px; filter: blur(var(--scenic-blur)) saturate(.95);
+  /* Soften the scenery behind the envelope without washing out its controls. */
   background:
-    linear-gradient(180deg, rgba(255, 248, 236, .08), rgba(237, 190, 186, .08)),
-    url('../images/envelop-backdrop-3.jpg') 22% center / cover no-repeat,
+    linear-gradient(180deg, rgba(255, 248, 236, .38), rgba(237, 190, 186, .55)),
+    url('../images/optimized/envelope-2560.webp') 22% center / cover no-repeat,
     var(--env-blush);
+}
+@media (max-width: 767px) {
+  #envelope::before {
+    background-image:
+      linear-gradient(180deg, rgba(255, 248, 236, .38), rgba(237, 190, 186, .55)),
+      url('../images/optimized/envelope-1600.webp');
+  }
 }
 #envelope .env-to::before, #envelope .env-hint::before { display: none; }
 .env-stage { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: clamp(18px, 4vh, 30px); text-align: center; max-width: 100%; }
@@ -33,8 +40,8 @@
   box-shadow: 0 8px 24px rgba(87, 60, 66, .09);
 }
 .env-intro-line { display: block; }
-#envelope.show .env-intro-line { animation: greetingReveal .9s .15s ease-out both; }
-#envelope.show .env-to b { animation: greetingReveal 1.15s .5s cubic-bezier(.2, .7, .3, 1) both; }
+#envelope.show .env-intro-line { animation: greetingReveal 1.2s .5s ease-out both; }
+#envelope.show .env-to b { animation: greetingReveal 1.15s .8s cubic-bezier(.2, .7, .3, 1) both; }
 @keyframes greetingReveal {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: none; }
@@ -144,16 +151,16 @@
 .magic-glow {
   width: min(120vw, 110vh); aspect-ratio: 1;
   background: radial-gradient(ellipse, rgba(255, 242, 207, .3), rgba(244, 203, 131, .13) 38%, transparent 70%);
-  animation: magicBloom 3.4s ease both;
+  animation: magicBloom var(--spiral-duration, 1.8s) ease both;
 }
 .magic-orbit {
   width: min(94vw, 90vh, 900px); height: auto; overflow: visible;
   filter: drop-shadow(0 0 5px #FFF8E7) drop-shadow(0 0 15px rgba(244, 203, 131, .8));
-  animation: magicSpiral 3.4s cubic-bezier(.2, .6, .3, 1) both;
+  animation: magicSpiral var(--spiral-duration, 1.8s) cubic-bezier(.2, .6, .3, 1) both;
 }
 .magic-trace {
   fill: none; stroke: url('#inviteLightGold'); stroke-width: 3; stroke-linecap: round;
-  stroke-dasharray: 1; animation: magicTrace 3.4s ease both;
+  stroke-dasharray: 1; animation: magicTrace var(--spiral-duration, 1.8s) ease both;
 }
 .magic-trace--echo { stroke-width: 1.3; opacity: .55; transform: rotate(24deg) scale(.88); }
 @keyframes magicTrace {

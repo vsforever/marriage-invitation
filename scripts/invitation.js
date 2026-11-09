@@ -7,6 +7,7 @@ const envelope = $('#envelope');
 const rsvp = $('#rsvp');
 const envelopeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const weddingDate = new Date(WEDDING.date);
+const spiralDuration = 1800;
 let entranceTimer = null;
 
 const el = (tag, cls, text) => {
@@ -90,8 +91,8 @@ function revealInvite(animate = false) {
   $('#envStage').inert = false;
   invite.classList.toggle('entering', animate);
   const light = $('#inviteMagic');
-  light.hidden = !animate || envelopeMotion.matches;
-  light.classList.toggle('revealing', !light.hidden);
+  light.hidden = true;
+  light.classList.remove('revealing');
   invite.scrollTop = 0;
   setActiveView(invite);
   $('#inviteTitle').focus({ preventScroll: true });
@@ -109,23 +110,38 @@ function openEnvelope() {
   $('#envSeal').focus({ preventScroll: true });
 }
 
+function completeEntrance() {
+  if (entranceTimer === null || envelope.inert || !envelope.classList.contains('opening')) return;
+  clearTimeout(entranceTimer);
+  entranceTimer = null;
+  revealInvite(true);
+}
+
+function finishSpiral() {
+  const light = $('#inviteMagic');
+  if (entranceTimer === null || envelope.inert || !envelope.classList.contains('opening') || light.classList.contains('revealing')) return;
+  clearTimeout(entranceTimer);
+  finishMusicFade();
+  light.classList.add('revealing');
+  // Keep the card hidden until the remaining light has faded away, too.
+  entranceTimer = setTimeout(completeEntrance, 1150);
+}
+
 function breakSeal() {
   if (envelope.inert || !envelope.classList.contains('show') || entranceTimer !== null) return;
-  // Begin the fade inside the tap, without waiting for the visual reveal.
-  playWeddingMusic({ fadeIn: true });
+  // Playback starts on the gesture; its fade shares the spiral's tap-based clock.
+  playWeddingMusic({ fadeIn: true, fadeDuration: spiralDuration });
   if (envelopeMotion.matches) { openInvite(); return; }
   clearEntranceEffects();
   envelope.classList.add('opening');
   envelope.setAttribute('aria-busy', 'true');
   $('#envStage').inert = true;
   $('#envSkip').focus({ preventScroll: true });
+  $('#inviteMagic').style.setProperty('--spiral-duration', `${spiralDuration}ms`);
   $('#inviteMagic').hidden = false;
   if (typeof envelopePopperShower === 'function') envelopePopperShower();
-  entranceTimer = setTimeout(() => {
-    entranceTimer = null;
-    // Let guests see the golden interlude before the card enters beneath its fade.
-    revealInvite(true);
-  }, 2600);
+  // Animation completion drives entry; this fallback prevents a stuck envelope.
+  entranceTimer = setTimeout(finishSpiral, spiralDuration + 250);
 }
 
 invite.addEventListener('animationend', (event) => {
@@ -133,9 +149,12 @@ invite.addEventListener('animationend', (event) => {
 });
 $('#inviteMagic').addEventListener('animationend', (event) => {
   const light = $('#inviteMagic');
+  if (event.target === light.querySelector('.magic-orbit') && event.animationName === 'magicSpiral') {
+    finishSpiral();
+    return;
+  }
   if (event.target !== light || event.animationName !== 'magicDeparture') return;
-  light.hidden = true;
-  light.classList.remove('revealing');
+  completeEntrance();
 });
 envelopeMotion.addEventListener('change', (event) => {
   if (!event.matches) return;

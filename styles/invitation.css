@@ -10,12 +10,12 @@
   }
   #invite.show { opacity: 1; visibility: visible; }
   /* Scenic floral-mandap backdrop behind the invite and the envelope.
-     Photo: images/mandap3.png; the SVG illustration shows if the photo is missing. */
+     Screen-sized WebP derived from images/mandap3.png; the SVG shows if the photo is missing. */
   #invite::before, #envelope::before {
     content: ''; position: fixed; inset: -24px; z-index: -1; pointer-events: none;
     background:
       linear-gradient(180deg, rgba(42, 14, 44, var(--scrim-top)), rgba(42, 14, 44, var(--scrim-bottom))),
-      url('../images/mandap3.png') center / cover no-repeat,
+      url('../images/optimized/mandap-1121.webp') center / cover no-repeat,
       url('../images/mandap-illustration.svg') center / cover no-repeat;
     filter: blur(var(--scenic-blur)) saturate(1.05);
   }
@@ -67,7 +67,7 @@
   /* Keep the rose-filled arch shoulders and taper off the long leafy tails. */
   .inv-garland {
     position: absolute; inset: 0 0 auto; z-index: -1; aspect-ratio: 2.3;
-    background: url('../images/floral-arch.png') top center / 100% auto no-repeat;
+    background: url('../images/optimized/floral-arch-1000.webp') top center / 100% auto no-repeat;
     -webkit-mask-image: linear-gradient(#000 70%, transparent);
     mask-image: linear-gradient(#000 70%, transparent);
     pointer-events: none;

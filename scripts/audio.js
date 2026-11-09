@@ -23,27 +23,34 @@ function stopMusicFade() {
   musicFadeFrame = 0;
 }
 
-function fadeMusicIn() {
-  const start = performance.now();
+function finishMusicFade() {
+  if (!musicFadeFrame) return;
+  stopMusicFade();
+  if (!musicMuted && !weddingAudio.paused) weddingAudio.volume = musicVolume;
+}
+
+function fadeMusicIn(start, duration) {
   function step(now) {
     if (musicMuted || weddingAudio.paused) { stopMusicFade(); return; }
-    const progress = Math.max(0, Math.min(1, (now - start) / 2400));
+    const progress = Math.max(0, Math.min(1, (now - start) / duration));
     weddingAudio.volume = musicVolume * progress * progress * (3 - 2 * progress);
     musicFadeFrame = progress < 1 ? requestAnimationFrame(step) : 0;
   }
-  musicFadeFrame = requestAnimationFrame(step);
+  // Buffered playback may start later; catch up rather than extending the reveal.
+  step(performance.now());
 }
 
-async function playWeddingMusic({ fadeIn = false } = {}) {
+async function playWeddingMusic({ fadeIn = false, fadeDuration = 2400 } = {}) {
   if (musicMuted || !weddingAudio.paused) return;
   const playId = ++musicPlayId;
+  const startedAt = performance.now();
   stopMusicFade();
   weddingAudio.volume = fadeIn ? 0 : musicVolume;
   try {
     // Calling play synchronously preserves the tap's autoplay permission.
     await weddingAudio.play();
     if (playId !== musicPlayId || musicMuted) return;
-    if (fadeIn) fadeMusicIn();
+    if (fadeIn) fadeMusicIn(startedAt, fadeDuration);
   } catch (_) {
     // Missing audio or autoplay restrictions must never block the invitation.
     if (playId === musicPlayId) weddingAudio.volume = musicVolume;
