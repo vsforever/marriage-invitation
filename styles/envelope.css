@@ -101,10 +101,16 @@
 }
 .env-hint:hover { background: var(--env-ivory); }
 
-/* Poppers lead the entrance; the card then descends gently into place. */
-#envelope.opening .env-stage { animation: envelopeSendOff .65s ease both; pointer-events: none; }
+/* Fade through a bright golden interlude before bringing in the card. */
+#invite[inert] { opacity: 0; visibility: hidden; }
+#envelope.opening { background: transparent; }
+#envelope.opening::before { animation: envelopeSceneryFade .8s ease both; }
+#envelope.opening .env-stage { animation: envelopeSendOff .8s ease both; pointer-events: none; }
+@keyframes envelopeSceneryFade {
+  to { opacity: 0; }
+}
 @keyframes envelopeSendOff {
-  to { opacity: .25; transform: translateY(18px) scale(.98); }
+  to { opacity: 0; transform: translateY(18px) scale(.98); }
 }
 #invite.entering .invite-card {
   transform-origin: 50% 0;
@@ -117,12 +123,23 @@
   to { opacity: 1; transform: none; }
 }
 
-/* A lingering champagne-gold spiral: soft light, never rapid flashes. */
+/* Below envelope controls, above the card: Skip and music stay available. */
 .invite-magic {
-  position: fixed; inset: 0; z-index: 940; display: grid; place-items: center;
+  position: fixed; inset: 0; z-index: 825; display: grid; place-items: center;
   overflow: hidden; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, #FFFFFF, #FFF8E7 75%, #F8E6C5);
+  animation: magicArrival .8s ease both;
 }
+.invite-magic.revealing { animation: magicDeparture .9s ease both; }
 .invite-magic[hidden] { display: none; }
+@keyframes magicArrival {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes magicDeparture {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 .magic-glow, .magic-orbit { grid-area: 1 / 1; }
 .magic-glow {
   width: min(120vw, 110vh); aspect-ratio: 1;
@@ -184,7 +201,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .invitation-petals, .envelope-poppers, .invite-magic { display: none; }
-  .magic-glow, .magic-orbit, .magic-trace { animation: none; }
+  .invite-magic, .magic-glow, .magic-orbit, .magic-trace { animation: none; }
+  #envelope.opening::before { animation: none; }
   #envelope.show .env-intro-line, #envelope.show .env-to b,
   #envelope.opening .env-stage, #invite.entering .invite-card { animation: none; }
 }

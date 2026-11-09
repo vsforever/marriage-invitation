@@ -77,16 +77,21 @@ function clearEntranceEffects() {
   entranceTimer = null;
   envelope.classList.remove('opening');
   envelope.removeAttribute('aria-busy');
+  $('#envStage').inert = false;
   invite.classList.remove('entering');
   $('#inviteMagic').hidden = true;
+  $('#inviteMagic').classList.remove('revealing');
   if (typeof clearEnvelopeCelebration === 'function') clearEnvelopeCelebration();
 }
 
 function revealInvite(animate = false) {
   envelope.classList.remove('show', 'opening');
   envelope.removeAttribute('aria-busy');
+  $('#envStage').inert = false;
   invite.classList.toggle('entering', animate);
-  $('#inviteMagic').hidden = !animate || envelopeMotion.matches;
+  const light = $('#inviteMagic');
+  light.hidden = !animate || envelopeMotion.matches;
+  light.classList.toggle('revealing', !light.hidden);
   invite.scrollTop = 0;
   setActiveView(invite);
   $('#inviteTitle').focus({ preventScroll: true });
@@ -112,19 +117,25 @@ function breakSeal() {
   clearEntranceEffects();
   envelope.classList.add('opening');
   envelope.setAttribute('aria-busy', 'true');
+  $('#envStage').inert = true;
+  $('#envSkip').focus({ preventScroll: true });
+  $('#inviteMagic').hidden = false;
   if (typeof envelopePopperShower === 'function') envelopePopperShower();
   entranceTimer = setTimeout(() => {
     entranceTimer = null;
-    // Keep the existing poppers alive as the card starts its descent.
+    // Let guests see the golden interlude before the card enters beneath its fade.
     revealInvite(true);
-  }, 600);
+  }, 2600);
 }
 
 invite.addEventListener('animationend', (event) => {
   if (event.animationName === 'invitationDrop') invite.classList.remove('entering');
 });
 $('#inviteMagic').addEventListener('animationend', (event) => {
-  if (event.animationName === 'magicSpiral') $('#inviteMagic').hidden = true;
+  const light = $('#inviteMagic');
+  if (event.target !== light || event.animationName !== 'magicDeparture') return;
+  light.hidden = true;
+  light.classList.remove('revealing');
 });
 envelopeMotion.addEventListener('change', (event) => {
   if (!event.matches) return;
