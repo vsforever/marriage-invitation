@@ -10,12 +10,12 @@
   }
   #invite.show { opacity: 1; visibility: visible; }
   /* Scenic floral-mandap backdrop behind the invite and the envelope.
-     Photo: images/mandap3.png; the SVG illustration shows if the photo is missing. */
+     Screen-sized WebP derived from images/mandap3.png; the SVG shows if the photo is missing. */
   #invite::before, #envelope::before {
     content: ''; position: fixed; inset: -24px; z-index: -1; pointer-events: none;
     background:
       linear-gradient(180deg, rgba(42, 14, 44, var(--scrim-top)), rgba(42, 14, 44, var(--scrim-bottom))),
-      url('../images/mandap3.png') center / cover no-repeat,
+      url('../images/optimized/mandap-1121.webp') center / cover no-repeat,
       url('../images/mandap-illustration.svg') center / cover no-repeat;
     filter: blur(var(--scenic-blur)) saturate(1.05);
   }
@@ -67,7 +67,7 @@
   /* Keep the rose-filled arch shoulders and taper off the long leafy tails. */
   .inv-garland {
     position: absolute; inset: 0 0 auto; z-index: -1; aspect-ratio: 2.3;
-    background: url('../images/floral-arch.png') top center / 100% auto no-repeat;
+    background: url('../images/optimized/floral-arch-1000.webp') top center / 100% auto no-repeat;
     -webkit-mask-image: linear-gradient(#000 70%, transparent);
     mask-image: linear-gradient(#000 70%, transparent);
     pointer-events: none;
@@ -99,11 +99,37 @@
   .btn-rsvp { animation: glow 2.4s ease-in-out infinite; padding: 15px 38px; font-size: 1.05rem; }
   .events { text-align: left; margin-top: 30px; }
   .events > h2 { text-align: center; font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 14px; }
-  .event { border-radius: 16px; background: rgba(255, 255, 255, .78); border: 1.5px solid rgba(255, 143, 184, .7); box-shadow: 0 10px 24px -14px rgba(199, 42, 94, .6); margin-bottom: 14px; }
-  .event-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; color: var(--ink); }
+  .event { border-radius: 16px; background: var(--event-bg, rgba(255, 255, 255, .78)); border: 1.5px solid var(--event-border, rgba(255, 143, 184, .7)); box-shadow: 0 10px 24px -14px var(--event-shadow, rgba(199, 42, 94, .6)); margin-bottom: 14px; }
+  /* Muted ceremony colours keep the card backgrounds quiet and the text dark. */
+  .event--green {
+    --event-bg: #EDF4E8; --event-border: #BCD0AF;
+    --event-ink: #2F4B35; --event-text: #455647;
+    --event-shadow: rgba(47, 75, 53, .18);
+  }
+  .event--blue {
+    --event-bg: #EDF3FB; --event-border: #BBCDE3;
+    --event-ink: #2D4667; --event-text: #46566B;
+    --event-shadow: rgba(45, 70, 103, .18);
+  }
+  .event--yellow {
+    --event-bg: #FFF5D9; --event-border: #E7D396;
+    --event-ink: #654E1D; --event-text: #665A3F;
+    --event-shadow: rgba(101, 78, 29, .18);
+  }
+  .event--orange {
+    --event-bg: #FFE2C2; --event-border: #E4AD7A;
+    --event-ink: #754421; --event-text: #70523C;
+    --event-shadow: rgba(117, 68, 33, .18);
+  }
+  .event--red {
+    --event-bg: #FAD5D2; --event-border: #D9948D;
+    --event-ink: #743A36; --event-text: #6D4D4A;
+    --event-shadow: rgba(116, 58, 54, .18);
+  }
+  .event-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; color: var(--event-ink, var(--ink)); }
   .event-head .ev-emoji { font-size: 1.4rem; }
   .event-head h4 { flex: 1; min-width: 0; margin: 0; font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; overflow-wrap: break-word; }
-  .event-body p { margin: 0; padding: 0 16px 6px 54px; color: var(--ink-soft); font-size: .92rem; }
+  .event-body p { margin: 0; padding: 0 16px 6px 54px; color: var(--event-text, var(--ink-soft)); font-size: .92rem; }
   .event-body p:last-child { padding-bottom: 16px; }
 
   .events .ev-day {

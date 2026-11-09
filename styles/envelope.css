@@ -15,12 +15,19 @@
 }
 #envelope.show { opacity: 1; visibility: visible; }
 #envelope::before {
-  inset: 0; filter: none;
-  /* Fill the screen while retaining the bouquet on narrow displays. */
+  inset: -12px; filter: blur(var(--scenic-blur)) saturate(.95);
+  /* Soften the scenery behind the envelope without washing out its controls. */
   background:
-    linear-gradient(180deg, rgba(255, 248, 236, .08), rgba(237, 190, 186, .08)),
-    url('../images/envelop-backdrop-3.jpg') 22% center / cover no-repeat,
+    linear-gradient(180deg, rgba(255, 248, 236, .38), rgba(237, 190, 186, .55)),
+    url('../images/optimized/envelope-2560.webp') 22% center / cover no-repeat,
     var(--env-blush);
+}
+@media (max-width: 767px) {
+  #envelope::before {
+    background-image:
+      linear-gradient(180deg, rgba(255, 248, 236, .38), rgba(237, 190, 186, .55)),
+      url('../images/optimized/envelope-1600.webp');
+  }
 }
 #envelope .env-to::before, #envelope .env-hint::before { display: none; }
 .env-stage { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: clamp(18px, 4vh, 30px); text-align: center; max-width: 100%; }
@@ -33,8 +40,8 @@
   box-shadow: 0 8px 24px rgba(87, 60, 66, .09);
 }
 .env-intro-line { display: block; }
-#envelope.show .env-intro-line { animation: greetingReveal .9s .15s ease-out both; }
-#envelope.show .env-to b { animation: greetingReveal 1.15s .5s cubic-bezier(.2, .7, .3, 1) both; }
+#envelope.show .env-intro-line { animation: greetingReveal 1.2s .5s ease-out both; }
+#envelope.show .env-to b { animation: greetingReveal 1.15s .8s cubic-bezier(.2, .7, .3, 1) both; }
 @keyframes greetingReveal {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: none; }
@@ -81,8 +88,8 @@
   border: 1px solid #D2B07B; border-radius: 48% 52% 49% 51% / 51% 48% 52% 49%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: clamp(1px, calc(var(--env-width) * .004), 3px); white-space: nowrap;
-  background: radial-gradient(ellipse at 28% 20%, rgba(255, 236, 220, .08), transparent 40%), conic-gradient(from 35deg, #6C364E, #834B60, #50273F, #744056, #8B5365, #5B2D45, #6C364E);
-  box-shadow: 0 0 0 3px rgba(179, 139, 76, .24), 2px 6px 9px rgba(80, 39, 63, .3), inset 1px 2px 3px #AD7B8B, inset -2px -3px 4px #3B1D30;
+  background: radial-gradient(ellipse at 28% 20%, rgba(255, 236, 220, .08), transparent 40%), conic-gradient(from 35deg, #721F30, #8C3041, #501322, #792537, #96394A, #601929, #721F30);
+  box-shadow: 0 0 0 3px rgba(179, 139, 76, .24), 2px 6px 9px rgba(80, 19, 34, .3), inset 1px 2px 3px #B86A76, inset -2px -3px 4px #3E0D1A;
   color: #FFF2D9;
   font-family: 'Playfair Display', var(--font-serif); font-style: italic; font-weight: 600;
   font-size: clamp(.6rem, calc(var(--env-width) * .036), 1.65rem); letter-spacing: .01em; line-height: 1.05;
@@ -101,10 +108,16 @@
 }
 .env-hint:hover { background: var(--env-ivory); }
 
-/* Poppers lead the entrance; the card then descends gently into place. */
-#envelope.opening .env-stage { animation: envelopeSendOff .65s ease both; pointer-events: none; }
+/* Fade through a bright golden interlude before bringing in the card. */
+#invite[inert] { opacity: 0; visibility: hidden; }
+#envelope.opening { background: transparent; }
+#envelope.opening::before { animation: envelopeSceneryFade .8s ease both; }
+#envelope.opening .env-stage { animation: envelopeSendOff .8s ease both; pointer-events: none; }
+@keyframes envelopeSceneryFade {
+  to { opacity: 0; }
+}
 @keyframes envelopeSendOff {
-  to { opacity: .25; transform: translateY(18px) scale(.98); }
+  to { opacity: 0; transform: translateY(18px) scale(.98); }
 }
 #invite.entering .invite-card {
   transform-origin: 50% 0;
@@ -117,26 +130,37 @@
   to { opacity: 1; transform: none; }
 }
 
-/* A lingering champagne-gold spiral: soft light, never rapid flashes. */
+/* Above the card, below the envelope: music stays available during the light. */
 .invite-magic {
-  position: fixed; inset: 0; z-index: 940; display: grid; place-items: center;
+  position: fixed; inset: 0; z-index: 825; display: grid; place-items: center;
   overflow: hidden; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, #FFFFFF, #FFF8E7 75%, #F8E6C5);
+  animation: magicArrival .8s ease both;
 }
+.invite-magic.revealing { animation: magicDeparture .9s ease both; }
 .invite-magic[hidden] { display: none; }
+@keyframes magicArrival {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes magicDeparture {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 .magic-glow, .magic-orbit { grid-area: 1 / 1; }
 .magic-glow {
   width: min(120vw, 110vh); aspect-ratio: 1;
   background: radial-gradient(ellipse, rgba(255, 242, 207, .3), rgba(244, 203, 131, .13) 38%, transparent 70%);
-  animation: magicBloom 3.4s ease both;
+  animation: magicBloom var(--spiral-duration, 1.8s) ease both;
 }
 .magic-orbit {
   width: min(94vw, 90vh, 900px); height: auto; overflow: visible;
   filter: drop-shadow(0 0 5px #FFF8E7) drop-shadow(0 0 15px rgba(244, 203, 131, .8));
-  animation: magicSpiral 3.4s cubic-bezier(.2, .6, .3, 1) both;
+  animation: magicSpiral var(--spiral-duration, 1.8s) cubic-bezier(.2, .6, .3, 1) both;
 }
 .magic-trace {
   fill: none; stroke: url('#inviteLightGold'); stroke-width: 3; stroke-linecap: round;
-  stroke-dasharray: 1; animation: magicTrace 3.4s ease both;
+  stroke-dasharray: 1; animation: magicTrace var(--spiral-duration, 1.8s) ease both;
 }
 .magic-trace--echo { stroke-width: 1.3; opacity: .55; transform: rotate(24deg) scale(.88); }
 @keyframes magicTrace {
@@ -184,7 +208,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .invitation-petals, .envelope-poppers, .invite-magic { display: none; }
-  .magic-glow, .magic-orbit, .magic-trace { animation: none; }
+  .invite-magic, .magic-glow, .magic-orbit, .magic-trace { animation: none; }
+  #envelope.opening::before { animation: none; }
   #envelope.show .env-intro-line, #envelope.show .env-to b,
   #envelope.opening .env-stage, #invite.entering .invite-card { animation: none; }
 }

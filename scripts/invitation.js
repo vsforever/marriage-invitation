@@ -7,6 +7,7 @@ const envelope = $('#envelope');
 const rsvp = $('#rsvp');
 const envelopeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const weddingDate = new Date(WEDDING.date);
+const spiralDuration = 1800;
 let entranceTimer = null;
 
 const el = (tag, cls, text) => {
@@ -40,7 +41,7 @@ function buildEvents() {
       root.appendChild(el('h3', 'ev-day', event.day));
       lastDay = event.day;
     }
-    const item = el('section', 'event');
+    const item = el('section', event.cardTone ? `event event--${event.cardTone}` : 'event');
     const head = el('div', 'event-head');
     const icon = el('span', 'ev-emoji', event.emoji);
     icon.setAttribute('aria-hidden', 'true');
@@ -77,16 +78,21 @@ function clearEntranceEffects() {
   entranceTimer = null;
   envelope.classList.remove('opening');
   envelope.removeAttribute('aria-busy');
+  $('#envStage').inert = false;
   invite.classList.remove('entering');
   $('#inviteMagic').hidden = true;
+  $('#inviteMagic').classList.remove('revealing');
   if (typeof clearEnvelopeCelebration === 'function') clearEnvelopeCelebration();
 }
 
 function revealInvite(animate = false) {
   envelope.classList.remove('show', 'opening');
   envelope.removeAttribute('aria-busy');
+  $('#envStage').inert = false;
   invite.classList.toggle('entering', animate);
-  $('#inviteMagic').hidden = !animate || envelopeMotion.matches;
+  const light = $('#inviteMagic');
+  light.hidden = true;
+  light.classList.remove('revealing');
   invite.scrollTop = 0;
   setActiveView(invite);
   $('#inviteTitle').focus({ preventScroll: true });
@@ -104,27 +110,51 @@ function openEnvelope() {
   $('#envSeal').focus({ preventScroll: true });
 }
 
+function completeEntrance() {
+  if (entranceTimer === null || envelope.inert || !envelope.classList.contains('opening')) return;
+  clearTimeout(entranceTimer);
+  entranceTimer = null;
+  revealInvite(true);
+}
+
+function finishSpiral() {
+  const light = $('#inviteMagic');
+  if (entranceTimer === null || envelope.inert || !envelope.classList.contains('opening') || light.classList.contains('revealing')) return;
+  clearTimeout(entranceTimer);
+  finishMusicFade();
+  light.classList.add('revealing');
+  // Keep the card hidden until the remaining light has faded away, too.
+  entranceTimer = setTimeout(completeEntrance, 1150);
+}
+
 function breakSeal() {
   if (envelope.inert || !envelope.classList.contains('show') || entranceTimer !== null) return;
-  // Begin the fade inside the tap, without waiting for the visual reveal.
-  playWeddingMusic({ fadeIn: true });
+  // Playback starts on the gesture; its fade shares the spiral's tap-based clock.
+  playWeddingMusic({ fadeIn: true, fadeDuration: spiralDuration });
   if (envelopeMotion.matches) { openInvite(); return; }
   clearEntranceEffects();
   envelope.classList.add('opening');
   envelope.setAttribute('aria-busy', 'true');
+  $('#envStage').inert = true;
+  $('#mute').focus({ preventScroll: true });
+  $('#inviteMagic').style.setProperty('--spiral-duration', `${spiralDuration}ms`);
+  $('#inviteMagic').hidden = false;
   if (typeof envelopePopperShower === 'function') envelopePopperShower();
-  entranceTimer = setTimeout(() => {
-    entranceTimer = null;
-    // Keep the existing poppers alive as the card starts its descent.
-    revealInvite(true);
-  }, 600);
+  // Animation completion drives entry; this fallback prevents a stuck envelope.
+  entranceTimer = setTimeout(finishSpiral, spiralDuration + 250);
 }
 
 invite.addEventListener('animationend', (event) => {
   if (event.animationName === 'invitationDrop') invite.classList.remove('entering');
 });
 $('#inviteMagic').addEventListener('animationend', (event) => {
-  if (event.animationName === 'magicSpiral') $('#inviteMagic').hidden = true;
+  const light = $('#inviteMagic');
+  if (event.target === light.querySelector('.magic-orbit') && event.animationName === 'magicSpiral') {
+    finishSpiral();
+    return;
+  }
+  if (event.target !== light || event.animationName !== 'magicDeparture') return;
+  completeEntrance();
 });
 envelopeMotion.addEventListener('change', (event) => {
   if (!event.matches) return;
@@ -141,7 +171,6 @@ document.addEventListener('visibilitychange', () => {
 $('#envSeal').addEventListener('click', (event) => { event.stopPropagation(); breakSeal(); });
 $('#envBody').addEventListener('click', breakSeal);
 $('#envWelcome').addEventListener('click', breakSeal);
-$('#envSkip').addEventListener('click', () => { playWeddingMusic({ fadeIn: true }); openInvite(); });
 $('#inviteClose').addEventListener('click', openEnvelope);
 invite.addEventListener('click', (event) => { if (event.target === invite) openEnvelope(); });
 
