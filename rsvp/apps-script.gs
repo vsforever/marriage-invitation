@@ -1,5 +1,5 @@
 /**
- * RSVP backend for the Vivek & Srishti invite (Google Apps Script web app).
+ * RSVP backend for the Srishti & Vivek invite (Google Apps Script web app).
  *
  * Each RSVP is appended to the "RSVPs" tab of the Google Sheet this script is bound to,
  * then the whole sheet is emailed as one Excel (.xlsx) file to NOTIFY_EMAIL.
@@ -87,7 +87,7 @@ function emailWorkbook_(sheet, name, guests, wishes) {
   const url = 'https://docs.google.com/spreadsheets/d/' + ss.getId() + '/export?format=xlsx';
   const xlsx = UrlFetchApp.fetch(url, {
     headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }
-  }).getBlob().setName('Vivek-Srishti-RSVPs.xlsx');
+  }).getBlob().setName('Srishti-Vivek-RSVPs.xlsx');
 
   // DriveApp is referenced so Apps Script grants the Drive scope the export URL needs.
   const sheetLink = DriveApp.getFileById(ss.getId()).getUrl();
