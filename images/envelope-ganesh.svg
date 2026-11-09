@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Beige-envelope embroidery, shared by all flap and pocket layers.
-       The centred seal and left-hand sacred artwork never intersect. -->
+  <!-- Envelope embroidery shared by all flap and pocket layers.
+       Ganesha is displayed separately beside the centred invocation. -->
   <defs>
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#9B762F"/>
@@ -9,27 +9,6 @@
       <stop offset=".7" stop-color="#F5DFA0"/>
       <stop offset="1" stop-color="#9D772F"/>
     </linearGradient>
-    <!-- Richer gold reserved for Ganesha and the invocation; embroidery stays muted. -->
-    <linearGradient id="sacredGold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#A66A0A"/>
-      <stop offset=".23" stop-color="#E9BA42"/>
-      <stop offset=".48" stop-color="#BD871A"/>
-      <stop offset=".7" stop-color="#FFE29A"/>
-      <stop offset="1" stop-color="#A66A0A"/>
-    </linearGradient>
-    <!-- Foil stamp: grainy gold, pressed-in shadow below right, soft highlight above left. -->
-    <filter id="foil" x="-15%" y="-15%" width="130%" height="130%">
-      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>
-      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .7 0 0 0 .65" result="grain"/>
-      <feComposite in="SourceGraphic" in2="grain" operator="in" result="grainy"/>
-      <feOffset in="SourceAlpha" dx="1.2" dy="1.6" result="o1"/>
-      <feFlood flood-color="#2E0A05" flood-opacity=".6"/>
-      <feComposite in2="o1" operator="in" result="shadow"/>
-      <feOffset in="SourceAlpha" dx="-.8" dy="-.8" result="o2"/>
-      <feFlood flood-color="#FFF4D0" flood-opacity=".35"/>
-      <feComposite in2="o2" operator="in" result="hi"/>
-      <feMerge><feMergeNode in="shadow"/><feMergeNode in="hi"/><feMergeNode in="grainy"/></feMerge>
-    </filter>
     <filter id="thread" x="-8%" y="-8%" width="116%" height="116%">
       <feDropShadow dx=".45" dy=".65" stdDeviation=".35" flood-color="#705728" flood-opacity=".4"/>
     </filter>
@@ -80,49 +59,4 @@
   <use href="#corner" transform="translate(586 14) scale(-1 1)"/>
   <use href="#corner" transform="translate(14 386) scale(1 -1)"/>
   <use href="#corner" transform="translate(586 386) scale(-1 -1)"/>
-
-  <!-- Small foil Ganesha, clear of the centred wax seal and embroidered corners. -->
-  <g id="ganeshFigure" transform="translate(120 190) scale(.65)" filter="url(#foil)">
-    <!-- Halo -->
-    <circle r="66" stroke="url(#sacredGold)" stroke-width="1" stroke-dasharray="1.5 6" opacity=".9"/>
-    <circle r="58" stroke="url(#sacredGold)" stroke-width=".8" opacity=".5"/>
-    <g stroke="url(#sacredGold)" stroke-width="2.6">
-      <!-- Mukut (crown) -->
-      <path d="M-19 -36L-15 -54Q0 -70 15 -54L19 -36Z" fill="url(#sacredGold)" fill-opacity=".35"/>
-      <path d="M-21 -36H21M-16 -46H16"/>
-      <path d="M0 -70V-77"/>
-      <!-- Ears -->
-      <path d="M-22 -30C-58 -44 -68 -2 -50 20C-42 30 -30 26 -21 14"/>
-      <path d="M22 -30C58 -44 68 -2 50 20C42 30 30 26 21 14"/>
-      <path d="M-28 -22C-46 -26 -52 -2 -42 10" stroke-width="1.4"/>
-      <path d="M28 -22C46 -26 52 -2 42 10" stroke-width="1.4"/>
-      <!-- Head -->
-      <path d="M-21 -36C-26 -18 -24 0 -16 10M21 -36C26 -18 24 0 16 10"/>
-      <!-- Trunk curling to the right -->
-      <path d="M-9 -4C-12 18 -8 38 6 50C16 58 30 52 28 40C26 31 16 31 15 39"/>
-      <path d="M9 -4C9 12 10 26 16 32" stroke-width="2"/>
-      <path d="M-10 14Q-2 17 9 14M-9 26Q-1 29 11 25" stroke-width="1.2"/>
-      <!-- Tusk -->
-      <path d="M17 10Q26 16 25 26Q20 19 14 16Z" fill="url(#sacredGold)" fill-opacity=".6" stroke-width="1.6"/>
-      <!-- Eyes -->
-      <path d="M-15 -14Q-10 -19 -5 -14Q-10 -11 -15 -14Z" fill="url(#sacredGold)" stroke-width="1.2"/>
-      <path d="M15 -14Q10 -19 5 -14Q10 -11 15 -14Z" fill="url(#sacredGold)" stroke-width="1.2"/>
-      <!-- Tilak -->
-      <path d="M-6 -33Q0 -22 6 -33" stroke-width="2"/>
-    </g>
-    <circle cy="-24" r="2.4" fill="#C2361F"/>
-    <circle cy="-61" r="3" fill="#C2361F"/>
-    <!-- Modak at the base -->
-    <path d="M-44 46Q-38 30 -32 46Z" fill="url(#sacredGold)" stroke="url(#sacredGold)" stroke-width="1.2"/>
-    <path d="M44 46Q38 30 32 46Z" fill="url(#sacredGold)" stroke="url(#sacredGold)" stroke-width="1.2"/>
-  </g>
-
-  <!-- Invocation beneath Ganesha, kept entirely within the left half. -->
-  <g id="ganeshInvocation" filter="url(#foil)">
-    <text x="120" y="265" text-anchor="middle" fill="url(#sacredGold)"
-          font-family="'Noto Sans Devanagari','Kohinoor Devanagari','Nirmala UI','Mangal',sans-serif"
-          font-size="16" font-weight="600" letter-spacing=".6" textLength="150" lengthAdjust="spacingAndGlyphs">॥ श्री गणेशाय नमः ॥</text>
-    <path d="M80 278H160" stroke="url(#sacredGold)" stroke-width=".9" opacity=".8"/>
-    <circle cx="120" cy="278" r="2" fill="url(#sacredGold)"/>
-  </g>
 </svg>

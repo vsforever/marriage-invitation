@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-78 -85 156 165" width="78" height="83" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A66A0A"/>
+      <stop offset=".23" stop-color="#E9BA42"/>
+      <stop offset=".48" stop-color="#BD871A"/>
+      <stop offset=".7" stop-color="#FFE29A"/>
+      <stop offset="1" stop-color="#A66A0A"/>
+    </linearGradient>
+  </defs>
+  <!-- The envelope's original Ganesha artwork, now paired with the invocation. -->
+  <circle r="66" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="1.5 6"/>
+  <circle r="58" stroke="url(#gold)" stroke-width="1" opacity=".65"/>
+  <g stroke="url(#gold)" stroke-width="3">
+    <path d="M-19 -36L-15 -54Q0 -70 15 -54L19 -36Z" fill="#A92932"/>
+    <path d="M-21 -36H21M-16 -46H16M0 -70V-77"/>
+    <path d="M-22 -30C-58 -44 -68 -2 -50 20C-42 30 -30 26 -21 14"/>
+    <path d="M22 -30C58 -44 68 -2 50 20C42 30 30 26 21 14"/>
+    <path d="M-28 -22C-46 -26 -52 -2 -42 10" stroke="#A92932" stroke-width="2"/>
+    <path d="M28 -22C46 -26 52 -2 42 10" stroke="#A92932" stroke-width="2"/>
+    <path d="M-21 -36C-26 -18 -24 0 -16 10M21 -36C26 -18 24 0 16 10"/>
+    <path d="M-9 -4C-12 18 -8 38 6 50C16 58 30 52 28 40C26 31 16 31 15 39"/>
+    <path d="M9 -4C9 12 10 26 16 32" stroke-width="2"/>
+    <path d="M-10 14Q-2 17 9 14M-9 26Q-1 29 11 25" stroke-width="1.5"/>
+    <path d="M17 10Q26 16 25 26Q20 19 14 16Z" fill="url(#gold)" fill-opacity=".6" stroke-width="1.6"/>
+    <path d="M-15 -14Q-10 -19 -5 -14Q-10 -11 -15 -14Z" fill="url(#gold)" stroke-width="1.2"/>
+    <path d="M15 -14Q10 -19 5 -14Q10 -11 15 -14Z" fill="url(#gold)" stroke-width="1.2"/>
+    <path d="M-6 -33Q0 -22 6 -33" stroke="#A92932" stroke-width="2"/>
+    <path d="M-44 46Q-38 30 -32 46Z" fill="url(#gold)" stroke-width="1.2"/>
+    <path d="M44 46Q38 30 32 46Z" fill="url(#gold)" stroke-width="1.2"/>
+  </g>
+  <circle cy="-24" r="2.4" fill="#C2361F"/>
+  <circle cy="-61" r="3" fill="#C2361F"/>
+</svg>

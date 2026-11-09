@@ -43,7 +43,12 @@
         <div class="env-back"></div>
         <div class="env-pocket"></div>
         <div class="env-flap"></div>
+        <div class="env-invocation">
+          <img class="env-ganesha" src="images/ganesha-icon.svg" alt="" width="78" height="83" />
+          <p class="env-invocation-text" lang="sa"><span class="env-invocation-mark">॥</span> श्री गणेशाय नमः <span class="env-invocation-mark">॥</span></p>
+        </div>
         <button class="env-seal" id="envSeal" type="button" aria-label="Open Vivek and Srishti’s wedding invitation"><span>Vivek</span><i>&amp;</i><span>Srishti</span></button>
+        <p class="env-auspicious" lang="hi"><span class="env-swastik" aria-hidden="true">卐</span> शुभ विवाह <span class="env-swastik" aria-hidden="true">卐</span></p>
       </div>
       <button class="env-hint" id="envWelcome" type="button">Tap to join our celebration</button>
     </div>
@@ -98,7 +103,7 @@
       </header>
       <div class="memories-story">
         <div class="memories-pin">
-          <div class="memories-frame">
+          <div class="memories-frame" role="group" aria-roledescription="carousel" aria-label="Our memories photo album">
             <div class="memories-frame-heading">
               <span>Vivek &amp; Srishti</span>
               <span class="memories-keepsake">A few favourite moments</span>
@@ -125,7 +130,12 @@
                 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/optimized/memory-5-1600.webp?v=9f3b3fb80df7" data-srcset="images/optimized/memory-5-800.webp?v=9f3b3fb80df7 800w, images/optimized/memory-5-1600.webp?v=9f3b3fb80df7 1600w, images/optimized/memory-5-2400.webp?v=9f3b3fb80df7 2400w" sizes="(max-width: 1072px) calc(100vw - 72px), 1000px" alt="Our fifth cherished memory" width="1600" height="2405" decoding="async" />
                 <figcaption><span>05 / The forever</span><h3>And this is just the beginning</h3><p>Here’s to all the memories still to come.</p></figcaption>
               </figure>
+              <div class="memory-controls">
+                <button type="button" data-memory-previous aria-label="Previous memory">‹</button>
+                <button type="button" data-memory-next aria-label="Next memory">›</button>
+              </div>
             </div>
+            <p class="memories-status" role="status" hidden></p>
             <div class="memories-footer">
               <span class="memories-position" aria-hidden="true"><b data-memory-current>01</b> <span>/ 05</span></span>
               <div class="memories-navigation" role="group" aria-label="Choose a memory">
@@ -135,8 +145,8 @@
                 <button type="button" data-memory-index="3" aria-label="View memory 4: The laughter"></button>
                 <button type="button" data-memory-index="4" aria-label="View memory 5: The forever"></button>
               </div>
-              <span class="memories-scroll" aria-hidden="true">Scroll to unfold <span>↓</span></span>
             </div>
+            <p class="memories-hint">Swipe photos or use the arrows to revisit a moment.</p>
           </div>
         </div>
       </div>

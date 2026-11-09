@@ -4,12 +4,21 @@
   const section = document.querySelector('#memories');
   if (!section) return;
   const scroller = document.querySelector('#invite');
-  const story = section.querySelector('.memories-story');
-  const pin = section.querySelector('.memories-pin');
+  const album = section.querySelector('.memories-frame');
+  const viewport = section.querySelector('.memory-photos');
   const photos = [...section.querySelectorAll('.memory-photo')];
   const buttons = [...section.querySelectorAll('[data-memory-index]')];
   const current = section.querySelector('[data-memory-current]');
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const caption = document.createElement('div');
+  caption.className = 'memories-caption';
+  caption.setAttribute('role', 'status');
+  caption.setAttribute('aria-live', 'polite');
+  caption.setAttribute('aria-atomic', 'true');
+  album.insertBefore(caption, section.querySelector('.memories-footer'));
+  const status = section.querySelector('.memories-status');
+  let active = 0;
+  let request = 0;
+  let pointer = null;
 
   function loadPhotos() {
     section.querySelectorAll('img[data-src]').forEach((image) => {
@@ -20,8 +29,53 @@
     });
   }
 
-  // Warm every wipe layer just before the album enters the invitation's viewport.
-  // Native lazy loading alone sees all the stacked photos at the same position.
+  function syncBackdrop(photo) {
+    const image = photo.querySelector('img');
+    if (!image.complete || image.naturalWidth <= 1 || !image.currentSrc || image.currentSrc.startsWith('data:')) return;
+    // Reuse the decoded responsive image: no extra file or original-photo download.
+    photo.style.setProperty('--memory-backdrop', `url(${JSON.stringify(image.currentSrc)})`);
+  }
+
+  function render(index) {
+    syncBackdrop(photos[index]);
+    active = index;
+    photos.forEach((photo, position) => {
+      photo.classList.toggle('is-active', position === index);
+      photo.setAttribute('aria-hidden', String(position !== index));
+    });
+    buttons.forEach((button, position) => {
+      if (position === index) button.setAttribute('aria-current', 'true');
+      else button.removeAttribute('aria-current');
+    });
+    current.textContent = String(index + 1).padStart(2, '0');
+    caption.replaceChildren(...[...photos[index].querySelector('figcaption').children].map((node) => node.cloneNode(true)));
+    status.hidden = true;
+  }
+
+  async function showMemory(index) {
+    const next = (index + photos.length) % photos.length;
+    const id = ++request;
+    album.removeAttribute('aria-busy');
+    status.hidden = true;
+    if (next === active) return;
+    loadPhotos();
+    album.setAttribute('aria-busy', 'true');
+    try {
+      // Keep the current photo visible until the selected image is ready.
+      await photos[next].querySelector('img').decode();
+      if (id !== request) return;
+      render(next);
+    } catch (_) {
+      if (id === request) {
+        status.textContent = 'This memory couldn’t load. Please try another photo.';
+        status.hidden = false;
+      }
+    } finally {
+      if (id === request) album.removeAttribute('aria-busy');
+    }
+  }
+
+  // Warm the album near the viewport, never download the large originals.
   if (typeof IntersectionObserver === 'function') {
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
@@ -31,83 +85,43 @@
     observer.observe(section);
   } else loadPhotos();
 
-  // Keep the caption readable instead of slicing two different sentences together.
-  const caption = document.createElement('div');
-  caption.className = 'memories-caption';
-  caption.setAttribute('aria-hidden', 'true');
-  section.querySelector('.memory-photos').appendChild(caption);
-  let frame = 0;
-  let active = -1;
-  const clamp = (value) => Math.max(0, Math.min(1, value));
+  buttons.forEach((button, index) => button.addEventListener('click', () => showMemory(index)));
+  section.querySelector('[data-memory-previous]').addEventListener('click', () => showMemory(active - 1));
+  section.querySelector('[data-memory-next]').addEventListener('click', () => showMemory(active + 1));
+  album.addEventListener('keydown', (event) => {
+    const destinations = { ArrowLeft: active - 1, ArrowRight: active + 1, Home: 0, End: photos.length - 1 };
+    if (!(event.key in destinations) || event.altKey || event.ctrlKey || event.metaKey) return;
+    event.preventDefault();
+    showMemory(destinations[event.key]);
+  });
 
-  // Each incoming layer reveals over the previous one; no fading or sliding.
-  function wipe(progress, index) {
-    const percent = progress * 100;
-    if (index % 3 === 1) return `inset(0 ${100 - percent}% 0 0)`;
-    if (index % 3 === 2) return `inset(0 0 ${100 - percent}% 0)`;
-    if (progress <= 0.5) {
-      return `polygon(0 0, ${percent * 2}% 0, 0 ${percent * 2}%)`;
+  viewport.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || event.button !== 0 || event.target.closest('button')) return;
+    pointer = { id: event.pointerId, x: event.clientX, y: event.clientY };
+  });
+  viewport.addEventListener('pointerup', (event) => {
+    if (!pointer || pointer.id !== event.pointerId) return;
+    const dx = event.clientX - pointer.x;
+    const dy = event.clientY - pointer.y;
+    pointer = null;
+    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      showMemory(active + (dx < 0 ? 1 : -1));
     }
-    const edge = (progress * 2 - 1) * 100;
-    return `polygon(0 0, 100% 0, 100% ${edge}%, ${edge}% 100%, 0 100%)`;
-  }
-
-  function geometry() {
-    const top = (Number.parseFloat(getComputedStyle(pin).top) || 0)
-      + (Number.parseFloat(getComputedStyle(scroller).paddingTop) || 0);
-    return {
-      start: story.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - top,
-      distance: Math.max(1, story.offsetHeight - pin.offsetHeight)
-    };
-  }
-
-  function update() {
-    frame = 0;
-    if (motion.matches) return;
-    const { start, distance } = geometry();
-    const position = clamp((scroller.scrollTop - start) / distance) * (photos.length - 1);
-    photos.forEach((photo, index) => {
-      if (index) photo.style.clipPath = wipe(clamp(position - index + 1), index);
+  });
+  viewport.addEventListener('pointercancel', () => { pointer = null; });
+  viewport.addEventListener('pointerleave', () => { pointer = null; });
+  photos.forEach((photo, index) => {
+    photo.setAttribute('role', 'group');
+    photo.setAttribute('aria-roledescription', 'slide');
+    photo.setAttribute('aria-label', `${index + 1} of ${photos.length}`);
+    photo.querySelector('img').addEventListener('load', () => syncBackdrop(photo));
+    syncBackdrop(photo);
+    photo.querySelector('img').addEventListener('error', () => {
+      if (index !== active) return;
+      status.textContent = 'This memory couldn’t load. Please try another photo.';
+      status.hidden = false;
     });
-    const next = Math.round(position);
-    if (next === active) return;
-    active = next;
-    caption.replaceChildren(...[...photos[next].querySelector('figcaption').children].map((node) => node.cloneNode(true)));
-    current.textContent = String(next + 1).padStart(2, '0');
-    photos.forEach((photo, index) => { photo.setAttribute('aria-hidden', String(index !== next)); });
-    buttons.forEach((button, index) => {
-      if (index === next) button.setAttribute('aria-current', 'true');
-      else button.removeAttribute('aria-current');
-    });
-  }
-
-  function scheduleUpdate() {
-    if (!frame && !motion.matches) frame = requestAnimationFrame(update);
-  }
-
-  function configureMotion() {
-    section.classList.toggle('is-enhanced', !motion.matches);
-    active = -1;
-    if (motion.matches) {
-      photos.forEach((photo) => {
-        photo.style.removeProperty('clip-path');
-        photo.removeAttribute('aria-hidden');
-      });
-    } else scheduleUpdate();
-  }
-
-  buttons.forEach((button, index) => button.addEventListener('click', () => {
-    if (motion.matches) return;
-    const { start, distance } = geometry();
-    // Keep dot navigation immediate; the wipe itself is controlled by scrolling.
-    scroller.scrollTo({ top: start + distance * index / (photos.length - 1), behavior: 'instant' });
-    scheduleUpdate();
-  }));
-  scroller.addEventListener('scroll', scheduleUpdate, { passive: true });
-  window.addEventListener('resize', scheduleUpdate, { passive: true });
-  motion.addEventListener('change', configureMotion);
-  if (typeof ResizeObserver === 'function') {
-    new ResizeObserver(scheduleUpdate).observe(story);
-  }
-  configureMotion();
+  });
+  section.classList.add('is-enhanced');
+  render(0);
 })();
