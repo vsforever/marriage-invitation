@@ -1,0 +1,36 @@
+/* Standalone page controls and small-screen layout. */
+.env-skip {
+  position: absolute; top: 18px; right: 18px; z-index: 20;
+  border: 1px solid var(--env-gold); border-radius: 999px;
+  padding: 9px 16px; color: var(--env-ink); background: var(--env-control-bg);
+  font-size: .8rem;
+}
+.env-skip:focus-visible, #mute:focus-visible {
+  outline: 3px solid var(--terra); outline-offset: 3px;
+}
+#envelope { overflow-y: auto; }
+.env-stage { margin: 60px 0 24px; }
+.rsvp-count input { min-width: 0; width: 100%; }
+.no-script { position: fixed; bottom: 15px; left: 15px; right: 15px; z-index: 1000; padding: 12px; background: var(--cream); text-align: center; }
+
+@media (max-width: 540px) {
+  #mute { right: 12px; bottom: 12px; width: 38px; height: 38px; font-size: 1rem; }
+}
+@media (max-width: 480px) {
+  .sd-grid { grid-template-columns: 1fr; }
+  .event-body p { padding-left: 16px; }
+  .btn-yes { padding: 16px 30px; font-size: 1.1rem; }
+  .countdown.small { gap: 5px; }
+  .countdown.small .cd-unit { min-width: 0; flex: 1; }
+  .cd-unit span { font-size: .6rem; letter-spacing: .05em; }
+}
+@media (max-height: 480px) {
+  .env-stage { gap: 12px; margin: 36px 0 12px; }
+  .env { --env-width: min(65vw, 400px, calc((100svh - 235px) * 1.5)); }
+  .env-to b { font-size: 1.7rem; }
+  .env-hint { font-size: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .2s !important; }
+  html { scroll-behavior: auto; }
+}

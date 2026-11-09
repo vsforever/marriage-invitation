@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Srishti &amp; Vivek — Wedding Invitation</title>
+  <meta name="description" content="Join Srishti and Vivek for their wedding celebrations, 29–30 November 2026 at Sports Club, Jabalpur." />
+  <meta name="theme-color" content="#2A0E2C" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/invitation.css" />
+  <link rel="stylesheet" href="styles/envelope.css" />
+  <link rel="stylesheet" href="styles/rsvp.css" />
+  <link rel="stylesheet" href="styles/responsive.css" />
+  <link rel="stylesheet" href="styles/memories.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+  <script src="scripts/config.js" defer></script>
+  <script src="scripts/invitation.js" defer></script>
+  <script src="scripts/effects.js" defer></script>
+  <script src="scripts/audio.js" defer></script>
+  <script src="scripts/rsvp.js" defer></script>
+  <script src="scripts/memories.js" defer></script>
+</head>
+<body>
+  <section id="envelope" class="show" role="dialog" aria-modal="true" aria-label="Wedding invitation envelope">
+    <button class="env-skip" id="envSkip" type="button">Skip to invitation →</button>
+    <div class="env-stage" id="envStage">
+      <p class="env-to"><span class="env-intro-line">Two hearts, one celebration</span><b>Our Forever Begins</b></p>
+      <div class="env" id="envBody">
+        <div class="env-back"></div>
+        <div class="env-pocket"></div>
+        <div class="env-flap"></div>
+        <button class="env-seal" id="envSeal" type="button" aria-label="Open Srishti and Vivek’s wedding invitation"><span>Srishti</span><i>&amp;</i><span>Vivek</span></button>
+      </div>
+      <button class="env-hint" id="envWelcome" type="button">Tap to join our celebration</button>
+    </div>
+  </section>
+
+  <main id="invite" class="show" inert aria-labelledby="inviteTitle">
+    <article class="invite-card">
+      <span class="flora tl" aria-hidden="true"></span>
+      <span class="flora tr" aria-hidden="true"></span>
+      <span class="flora bl" aria-hidden="true"></span>
+      <span class="flora br" aria-hidden="true"></span>
+      <button class="invite-close" id="inviteClose" type="button" aria-label="Return to the envelope">✕</button>
+      <div class="inv-name-arch">
+        <div class="inv-garland" aria-hidden="true"></div>
+        <span class="inv-eyebrow">Together with their families</span>
+        <h1 class="inv-names" id="inviteTitle" tabindex="-1">Srishti <span>&amp;</span> Vivek</h1>
+      </div>
+      <dl class="inv-families">
+        <div>
+          <dt>Srishti, daughter of</dt>
+          <dd>Shri Shrawan Kumar Jha<br>&amp; Smt. Anjana Jha</dd>
+        </div>
+        <div>
+          <dt>Vivek, son of</dt>
+          <dd>Shri Mani Kant Choudhary<br>&amp; Smt. Chanda Rani</dd>
+        </div>
+      </dl>
+      <p class="inv-text">Seven sacred vows, two families, one joyous celebration — we would love for you to be there as we begin our new life together.</p>
+      <div class="gold-rule"></div>
+      <div class="save-date">
+        <h2>Save the Date</h2>
+        <div class="sd-grid">
+          <div><small>Dates</small><strong>29 – 30 Nov 2026</strong></div>
+          <div><small>Days</small><strong>Sunday &amp; Monday</strong></div>
+          <div><small>Venue</small><strong data-wedding-address>Sports Club, Jabalpur</strong></div>
+        </div>
+        <p class="inv-tagline">The Countdown to Forever</p>
+        <div class="countdown small" data-countdown role="timer" aria-label="Time until the wedding"></div>
+      </div>
+      <div class="events">
+        <h2>The Celebrations</h2>
+        <div id="eventList"></div>
+      </div>
+    </article>
+
+    <section class="memories" id="memories" aria-labelledby="memoriesTitle">
+      <header class="memories-heading">
+        <span class="memories-ornament" aria-hidden="true">✧ ── ♡ ── ✧</span>
+        <p class="memories-eyebrow">The moments that made us</p>
+        <h2 id="memoriesTitle">Our Memories</h2>
+        <p>Little moments. Endless laughter. A lifetime of us.</p>
+      </header>
+      <div class="memories-story">
+        <div class="memories-pin">
+          <div class="memories-frame">
+            <div class="memories-frame-heading">
+              <span>Srishti &amp; Vivek</span>
+              <span class="memories-keepsake">A few favourite moments</span>
+            </div>
+            <!-- Memory photos are displayed in order from 1.JPG through 5.JPG. -->
+            <div class="memory-photos">
+              <figure class="memory-photo">
+                <img src="images/memories/1.JPG" alt="Our first cherished memory" width="7008" height="4672" decoding="async" />
+                <figcaption><span>01 / The beginning</span><h3>Where our story began</h3><p>Some moments quietly change everything.</p></figcaption>
+              </figure>
+              <figure class="memory-photo">
+                <img src="images/memories/2.JPG" alt="Our second cherished memory" width="6048" height="4024" decoding="async" />
+                <figcaption><span>02 / The little things</span><h3>Our kind of happiness</h3><p>Ordinary days, made extraordinary together.</p></figcaption>
+              </figure>
+              <figure class="memory-photo">
+                <img src="images/memories/3.JPG" alt="Our third cherished memory" width="7008" height="4672" decoding="async" />
+                <figcaption><span>03 / The adventures</span><h3>Anywhere, with you</h3><p>A new place. Another memory to keep.</p></figcaption>
+              </figure>
+              <figure class="memory-photo">
+                <img src="images/memories/4.JPG" alt="Our fourth cherished memory" width="4608" height="3072" decoding="async" />
+                <figcaption><span>04 / The laughter</span><h3>My favourite place is us</h3><p>The smiles we never had to practise.</p></figcaption>
+              </figure>
+              <figure class="memory-photo">
+                <img src="images/memories/5.JPG" alt="Our fifth cherished memory" width="6048" height="4024" decoding="async" />
+                <figcaption><span>05 / The forever</span><h3>And this is just the beginning</h3><p>Here’s to all the memories still to come.</p></figcaption>
+              </figure>
+            </div>
+            <div class="memories-footer">
+              <span class="memories-position" aria-hidden="true"><b data-memory-current>01</b> <span>/ 05</span></span>
+              <div class="memories-navigation" role="group" aria-label="Choose a memory">
+                <button type="button" data-memory-index="0" aria-label="View memory 1: The beginning" aria-current="true"></button>
+                <button type="button" data-memory-index="1" aria-label="View memory 2: The little things"></button>
+                <button type="button" data-memory-index="2" aria-label="View memory 3: The adventures"></button>
+                <button type="button" data-memory-index="3" aria-label="View memory 4: The laughter"></button>
+                <button type="button" data-memory-index="4" aria-label="View memory 5: The forever"></button>
+              </div>
+              <span class="memories-scroll" aria-hidden="true">Scroll to unfold <span>↓</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="memories-signoff">The best is yet to come <span aria-hidden="true">♡</span></p>
+    </section>
+
+    <section id="rsvp" aria-labelledby="rsvpTitle" aria-describedby="rsvpCaption">
+      <header class="rsvp-heading">
+        <span class="rsvp-ornament" aria-hidden="true">✧ ── ♡ ── ✧</span>
+        <p class="rsvp-eyebrow">The celebration is sweeter with you</p>
+        <h2 id="rsvpTitle">Celebrate With Us</h2>
+        <p id="rsvpCaption">Your presence would mean the world to us. Kindly let us know if you’ll be joining our wedding festivities, so we can save a place for you.</p>
+      </header>
+      <div class="rsvp-card">
+        <div data-rsvp-step="form">
+          <div class="rsvp-emoji" aria-hidden="true">💌</div>
+          <h3>A place for you, a memory for us</h3>
+          <p class="rsvp-intro">We can’t wait to celebrate, laugh, and make beautiful memories with you.</p>
+          <p class="rsvp-status" id="rsvpStatus" role="status"></p>
+          <form class="rsvp-form" id="rsvpForm" novalidate>
+            <label for="rsvpName">May we have your name?
+              <input type="text" name="name" id="rsvpName" autocomplete="name" maxlength="80" required placeholder="Your full name">
+            </label>
+            <label for="rsvpGuests">How many of you will be celebrating with us?
+              <small id="rsvpGuestsHint">Please include yourself in your party of 1–20 guests.</small>
+              <span class="rsvp-count">
+                <button class="rsvp-step" type="button" data-step="-1" aria-label="One fewer guest">−</button>
+                <input type="number" name="guests" id="rsvpGuests" inputmode="numeric" min="1" max="20" step="1" value="1" required aria-describedby="rsvpGuestsHint">
+                <button class="rsvp-step" type="button" data-step="1" aria-label="One more guest">+</button>
+              </span>
+            </label>
+            <label for="rsvpWishes">A little love for our new beginning <span class="rsvp-optional">(optional)</span>
+              <small id="rsvpWishesHint">Share a wish, a blessing, or a little advice for our journey together.</small>
+              <textarea name="wishes" id="rsvpWishes" rows="4" maxlength="2000" aria-describedby="rsvpWishesHint" placeholder="Your words will be a keepsake we’ll treasure…"></textarea>
+            </label>
+            <label class="rsvp-hp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            <p class="rsvp-error" id="rsvpError" role="alert"></p>
+            <div class="rsvp-actions">
+              <button class="btn-soft warm" id="rsvpSubmit" type="submit">Count us in 💗</button>
+            </div>
+          </form>
+        </div>
+        <div data-rsvp-step="thanks" hidden>
+          <div class="rsvp-emoji" aria-hidden="true">🥂</div>
+          <h3 id="rsvpThanksTitle" tabindex="-1">We’re so glad you’ll be there!</h3>
+          <p id="rsvpThanks"></p>
+          <p>Thank you for being part of our story. Let the festivities begin!</p>
+          <div class="rsvp-actions">
+            <button class="btn-soft warm" id="rsvpAnother" type="button">Send another response</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="invitation-petals" id="invitationPetals" aria-hidden="true" hidden></div>
+  <div class="invite-magic" id="inviteMagic" aria-hidden="true" hidden>
+    <div class="magic-glow"></div>
+    <svg class="magic-orbit" viewBox="-320 -320 640 640" focusable="false">
+      <defs>
+        <linearGradient id="inviteLightGold" x1="0" y1="0" x2="1" y2="1">
+          <stop stop-color="#FFF8E7"/><stop offset=".45" stop-color="#F4CB83"/><stop offset="1" stop-color="#E9B3C5"/>
+        </linearGradient>
+        <path id="inviteLightSpiral" pathLength="1" d="M0 -18 C36 -18 42 20 7 36 C-48 60 -81 -13 -46 -58 C17 -139 146 -63 116 45 C70 208 -187 172 -190 -4 C-196 -240 135 -314 258 -100 C325 15 275 180 155 236"/>
+      </defs>
+      <use class="magic-trace magic-trace--echo" href="#inviteLightSpiral"/>
+      <use class="magic-trace" href="#inviteLightSpiral"/>
+    </svg>
+  </div>
+  <div class="envelope-poppers" id="envelopePoppers" aria-hidden="true"></div>
+  <button id="mute" type="button" aria-label="Play music" aria-pressed="false">🔇</button>
+  <noscript><p class="no-script">Please enable JavaScript to open the invitation, view the schedule and RSVP.</p></noscript>
+</body>
+</html>

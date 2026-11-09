@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <pattern id="stitch" width="6" height="6" patternUnits="userSpaceOnUse">
+      <path d="M0 1H6M1 0V6" stroke="#FFEBC1" stroke-opacity=".08" stroke-width=".6"/>
+      <path d="M0 4H6M4 0V6" stroke="#6D1D46" stroke-opacity=".07" stroke-width=".5"/>
+    </pattern>
+    <g id="paisley" stroke="#F7D68D" stroke-width=".8">
+      <path d="M0 29C-26 19 -21 -5 -7 -12C9 -20 15 -7 6 0C22 0 26 15 15 24C10 29 5 30 0 29Z" fill="#9B355C" fill-opacity=".09" stroke-opacity=".48"/>
+      <path d="M0 24C-18 15 -15 0 -5 -5C4 -10 9 -6 5 -2M0 20C-7 14 -8 5 0 2C8 4 10 14 0 20Z" stroke-opacity=".4"/>
+      <path d="M0 20V7M-9 13L-3 15M9 13L3 15" stroke-opacity=".34"/>
+      <circle cy="-2" r="1.8" fill="#EFB978" fill-opacity=".4" stroke-opacity=".4"/>
+    </g>
+  </defs>
+  <path d="M0 0H120V120H0Z" fill="url(#stitch)"/>
+  <use href="#paisley" transform="translate(30 22)"/>
+  <use href="#paisley" transform="translate(90 82) rotate(180)"/>
+  <path d="M60 9L65 15L60 21L55 15ZM0 69L5 75L0 81M120 69L115 75L120 81" stroke="#F7D68D" stroke-opacity=".4" stroke-width=".7"/>
+  <circle cx="60" cy="75" r="2" fill="#EFB978" fill-opacity=".34"/>
+</svg>

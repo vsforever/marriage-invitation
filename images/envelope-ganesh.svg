@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Beige-envelope embroidery, shared by all flap and pocket layers.
+       The centred seal and left-hand sacred artwork never intersect. -->
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9B762F"/>
+      <stop offset=".23" stop-color="#E6C875"/>
+      <stop offset=".48" stop-color="#AF8435"/>
+      <stop offset=".7" stop-color="#F5DFA0"/>
+      <stop offset="1" stop-color="#9D772F"/>
+    </linearGradient>
+    <!-- Foil stamp: grainy gold, pressed-in shadow below right, soft highlight above left. -->
+    <filter id="foil" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.3 0 0 0 .3" result="grain"/>
+      <feComposite in="SourceGraphic" in2="grain" operator="in" result="grainy"/>
+      <feOffset in="SourceAlpha" dx="1.2" dy="1.6" result="o1"/>
+      <feFlood flood-color="#2E0A05" flood-opacity=".6"/>
+      <feComposite in2="o1" operator="in" result="shadow"/>
+      <feOffset in="SourceAlpha" dx="-.8" dy="-.8" result="o2"/>
+      <feFlood flood-color="#FFF4D0" flood-opacity=".35"/>
+      <feComposite in2="o2" operator="in" result="hi"/>
+      <feMerge><feMergeNode in="shadow"/><feMergeNode in="hi"/><feMergeNode in="grainy"/></feMerge>
+    </filter>
+    <filter id="thread" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx=".45" dy=".65" stdDeviation=".35" flood-color="#705728" flood-opacity=".4"/>
+    </filter>
+    <pattern id="vine" width="30" height="16" patternUnits="userSpaceOnUse">
+      <path d="M0 8Q8 0 15 8T30 8M4 7Q6 0 11 3Q10 8 4 7M19 9Q21 16 26 13Q25 8 19 9" stroke="url(#gold)" stroke-width=".8"/>
+      <path d="M12 8L15 5L18 8L15 11Z" fill="#B69551"/>
+    </pattern>
+    <g id="feather">
+      <path d="M0 0C-7 -17 -26 -28 -23 -45C-19 -65 17 -65 23 -45C28 -28 6 -15 0 0Z" fill="#667B68" fill-opacity=".18" stroke="url(#gold)" stroke-width="1"/>
+      <path d="M0 0V-50M0 -9L-13 -28M0 -16L14 -34M0 -25L-18 -42M0 -32L17 -48" stroke="url(#gold)" stroke-width=".65"/>
+      <ellipse cy="-43" rx="11" ry="14" fill="#687F70" fill-opacity=".6" stroke="url(#gold)" stroke-width="1.2"/>
+      <path d="M0 -54C-10 -44 -7 -35 0 -32C8 -36 10 -46 0 -54Z" fill="#C8A654"/>
+      <ellipse cy="-43" rx="4" ry="7" fill="#375B5C"/>
+      <path d="M-2 -47Q1 -50 3 -45" stroke="#F1DB9B" stroke-width=".8"/>
+    </g>
+    <g id="flower" stroke="url(#gold)" stroke-width=".9" fill="#EBD9AE">
+      <path d="M0 0C-21 -1 -22 -18 -10 -19C-8 -32 8 -32 10 -19C23 -18 21 -1 0 0Z"/>
+      <path d="M0 0C-15 17 -29 7 -23 -3C-32 -13 -21 -25 -11 -18C1 -24 12 -11 0 0Z" transform="rotate(72)"/>
+      <path d="M0 0C-15 17 -29 7 -23 -3C-32 -13 -21 -25 -11 -18C1 -24 12 -11 0 0Z" transform="rotate(144)"/>
+      <circle r="7" fill="#AE873C"/><circle r="3" fill="#F9EAC3"/>
+    </g>
+    <g id="corner" filter="url(#thread)">
+      <path d="M0 100Q-1 5 100 0M3 83Q12 12 83 3M8 64Q22 21 64 8" stroke="url(#gold)" stroke-width="1"/>
+      <use href="#feather" transform="translate(36 40) rotate(-43) scale(.64)"/>
+      <use href="#feather" transform="translate(50 32) rotate(-12) scale(.57)"/>
+      <use href="#feather" transform="translate(31 53) rotate(-76) scale(.57)"/>
+      <use href="#flower" transform="translate(29 30) scale(.42)"/>
+      <path d="M10 74Q28 61 35 42M69 10Q57 28 42 35M14 59Q25 47 23 39M59 14Q47 25 39 23" stroke="url(#gold)" stroke-width="1.3"/>
+      <g fill="#7E8E73" stroke="url(#gold)" stroke-width=".65">
+        <path d="M14 65Q4 46 16 38Q24 51 14 65ZM23 52Q33 36 43 40Q35 53 23 52Z"/>
+        <path d="M65 14Q46 4 38 16Q51 24 65 14ZM52 23Q36 33 40 43Q53 35 52 23Z"/>
+      </g>
+      <g fill="#C5A35A"><circle cx="10" cy="83" r="1.5"/><circle cx="83" cy="10" r="1.5"/><circle cx="13" cy="27" r="1.2"/><circle cx="27" cy="13" r="1.2"/></g>
+    </g>
+  </defs>
+
+  <!-- Four visible embroidered edges and mirrored peacock-feather corners. -->
+  <g filter="url(#thread)">
+    <rect x="10" y="10" width="580" height="380" rx="4" stroke="url(#gold)" stroke-width="1.6"/>
+    <rect x="28" y="28" width="544" height="344" rx="3" stroke="url(#gold)" stroke-width=".75"/>
+    <rect x="33" y="33" width="534" height="334" rx="2" stroke="#B49455" stroke-width=".65" stroke-dasharray=".8 3"/>
+    <rect x="112" y="10" width="376" height="16" fill="url(#vine)"/>
+    <rect x="112" y="374" width="376" height="16" fill="url(#vine)"/>
+    <rect x="112" y="-26" width="176" height="16" fill="url(#vine)" transform="rotate(90)"/>
+    <rect x="112" y="-590" width="176" height="16" fill="url(#vine)" transform="rotate(90)"/>
+  </g>
+  <use href="#corner" transform="translate(14 14)"/>
+  <use href="#corner" transform="translate(586 14) scale(-1 1)"/>
+  <use href="#corner" transform="translate(14 386) scale(1 -1)"/>
+  <use href="#corner" transform="translate(586 386) scale(-1 -1)"/>
+
+  <!-- Small foil Ganesha, clear of the centred wax seal and embroidered corners. -->
+  <g id="ganeshFigure" transform="translate(120 190) scale(.65)" filter="url(#foil)">
+    <!-- Halo -->
+    <circle r="66" stroke="url(#gold)" stroke-width="1" stroke-dasharray="1.5 6" opacity=".9"/>
+    <circle r="58" stroke="url(#gold)" stroke-width=".8" opacity=".5"/>
+    <g stroke="url(#gold)" stroke-width="2.6">
+      <!-- Mukut (crown) -->
+      <path d="M-19 -36L-15 -54Q0 -70 15 -54L19 -36Z" fill="url(#gold)" fill-opacity=".35"/>
+      <path d="M-21 -36H21M-16 -46H16"/>
+      <path d="M0 -70V-77"/>
+      <!-- Ears -->
+      <path d="M-22 -30C-58 -44 -68 -2 -50 20C-42 30 -30 26 -21 14"/>
+      <path d="M22 -30C58 -44 68 -2 50 20C42 30 30 26 21 14"/>
+      <path d="M-28 -22C-46 -26 -52 -2 -42 10" stroke-width="1.4"/>
+      <path d="M28 -22C46 -26 52 -2 42 10" stroke-width="1.4"/>
+      <!-- Head -->
+      <path d="M-21 -36C-26 -18 -24 0 -16 10M21 -36C26 -18 24 0 16 10"/>
+      <!-- Trunk curling to the right -->
+      <path d="M-9 -4C-12 18 -8 38 6 50C16 58 30 52 28 40C26 31 16 31 15 39"/>
+      <path d="M9 -4C9 12 10 26 16 32" stroke-width="2"/>
+      <path d="M-10 14Q-2 17 9 14M-9 26Q-1 29 11 25" stroke-width="1.2"/>
+      <!-- Tusk -->
+      <path d="M17 10Q26 16 25 26Q20 19 14 16Z" fill="url(#gold)" fill-opacity=".6" stroke-width="1.6"/>
+      <!-- Eyes -->
+      <path d="M-15 -14Q-10 -19 -5 -14Q-10 -11 -15 -14Z" fill="url(#gold)" stroke-width="1.2"/>
+      <path d="M15 -14Q10 -19 5 -14Q10 -11 15 -14Z" fill="url(#gold)" stroke-width="1.2"/>
+      <!-- Tilak -->
+      <path d="M-6 -33Q0 -22 6 -33" stroke-width="2"/>
+    </g>
+    <circle cy="-24" r="2.4" fill="#C2361F"/>
+    <circle cy="-61" r="3" fill="#C2361F"/>
+    <!-- Modak at the base -->
+    <path d="M-44 46Q-38 30 -32 46Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2"/>
+    <path d="M44 46Q38 30 32 46Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2"/>
+  </g>
+
+  <!-- Invocation beneath Ganesha, kept entirely within the left half. -->
+  <g id="ganeshInvocation" filter="url(#foil)">
+    <text x="120" y="265" text-anchor="middle" fill="url(#gold)"
+          font-family="'Noto Sans Devanagari','Kohinoor Devanagari','Nirmala UI','Mangal',sans-serif"
+          font-size="16" font-weight="600" letter-spacing=".6" textLength="150" lengthAdjust="spacingAndGlyphs">॥ श्री गणेशाय नमः ॥</text>
+    <path d="M80 278H160" stroke="url(#gold)" stroke-width=".9" opacity=".8"/>
+    <circle cx="120" cy="278" r="2" fill="url(#gold)"/>
+  </g>
+</svg>
