@@ -130,7 +130,7 @@
   to { opacity: 1; transform: none; }
 }
 
-/* Below envelope controls, above the card: Skip and music stay available. */
+/* Above the card, below the envelope: music stays available during the light. */
 .invite-magic {
   position: fixed; inset: 0; z-index: 825; display: grid; place-items: center;
   overflow: hidden; pointer-events: none;

@@ -136,7 +136,7 @@ function breakSeal() {
   envelope.classList.add('opening');
   envelope.setAttribute('aria-busy', 'true');
   $('#envStage').inert = true;
-  $('#envSkip').focus({ preventScroll: true });
+  $('#mute').focus({ preventScroll: true });
   $('#inviteMagic').style.setProperty('--spiral-duration', `${spiralDuration}ms`);
   $('#inviteMagic').hidden = false;
   if (typeof envelopePopperShower === 'function') envelopePopperShower();
@@ -171,7 +171,6 @@ document.addEventListener('visibilitychange', () => {
 $('#envSeal').addEventListener('click', (event) => { event.stopPropagation(); breakSeal(); });
 $('#envBody').addEventListener('click', breakSeal);
 $('#envWelcome').addEventListener('click', breakSeal);
-$('#envSkip').addEventListener('click', () => { playWeddingMusic({ fadeIn: true }); openInvite(); });
 $('#inviteClose').addEventListener('click', openEnvelope);
 invite.addEventListener('click', (event) => { if (event.target === invite) openEnvelope(); });
 
