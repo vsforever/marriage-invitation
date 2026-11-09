@@ -55,6 +55,8 @@
 .env {
   position: relative;
   --env-width: min(calc(100vw - 48px), 86vw, 720px, calc((100svh - 280px) * 1.5));
+  --seal-diameter: clamp(48px, calc(var(--env-width) * .26), 176px);
+  --seal-clearance: clamp(16px, calc(var(--env-width) * .04), 28px);
   width: var(--env-width); aspect-ratio: 1.5;
   cursor: pointer;
   --env-art: url('../images/envelope-ganesh.svg');
@@ -81,9 +83,47 @@
   box-shadow: inset 0 -2px 3px rgba(87, 60, 66, .18);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
+/* Keep the centred sacred pair comfortably above the seal, including its gold rim. */
+.env-invocation {
+  position: absolute; left: 50%; z-index: 4;
+  bottom: calc(50% + var(--seal-diameter) / 2 + var(--seal-clearance));
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(6px, calc(var(--env-width) * .016), 12px);
+  transform: translateX(-50%); padding: 3px .55em;
+  width: max-content; max-width: 90%; border-radius: 16px;
+  border: 1px solid #BD8C28; background: #FFF8EC;
+  color: #9D2530;
+  font-family: 'Noto Sans Devanagari', 'Kohinoor Devanagari', 'Nirmala UI', 'Mangal', sans-serif;
+  font-size: clamp(.75rem, calc(var(--env-width) * .034), 1.5rem);
+  font-weight: 700; line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(117, 68, 33, .14), inset 0 0 0 2px #F5D991;
+  pointer-events: none;
+}
+.env-ganesha { display: block; flex: none; width: clamp(28px, calc(var(--env-width) * .07), 50px); height: auto; }
+.env-invocation-text { margin: 0; white-space: nowrap; }
+.env-invocation-mark { color: #99690C; }
+/* A small auspicious inscription balances the sacred greeting without crowding the names. */
+.env-auspicious {
+  position: absolute; left: 50%; z-index: 4;
+  top: calc(50% + var(--seal-diameter) / 2 + var(--seal-clearance));
+  transform: translateX(-50%); margin: 0; padding: 3px 10px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: max-content; max-width: 80%; border: 1px solid #D2B07B; border-radius: 20px;
+  background: #FFF8EC; color: #9D2530;
+  font-family: 'Noto Sans Devanagari', 'Kohinoor Devanagari', 'Nirmala UI', 'Mangal', sans-serif;
+  font-size: clamp(.75rem, calc(var(--env-width) * .034), 1.25rem);
+  font-weight: 700; line-height: 1.4; white-space: nowrap;
+  pointer-events: none;
+}
+.env-swastik {
+  display: inline-grid; place-items: center; flex: none;
+  width: 1.1em; height: 1.1em; color: #A92932;
+  font-family: 'Noto Sans Symbols 2', 'Kohinoor Devanagari', sans-serif;
+  font-size: 1.1em; font-weight: 500; line-height: 1;
+}
 .env-seal {
   position: absolute; left: 50%; top: 50%; z-index: 4;
-  width: min(26%, 176px); aspect-ratio: 1;
+  width: var(--seal-diameter); aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border: 1px solid #D2B07B; border-radius: 48% 52% 49% 51% / 51% 48% 52% 49%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;

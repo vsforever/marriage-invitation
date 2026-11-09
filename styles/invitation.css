@@ -116,10 +116,10 @@
     --event-ink: #654E1D; --event-text: #665A3F;
     --event-shadow: rgba(101, 78, 29, .18);
   }
-  .event--orange {
-    --event-bg: #FFE2C2; --event-border: #E4AD7A;
-    --event-ink: #754421; --event-text: #70523C;
-    --event-shadow: rgba(117, 68, 33, .18);
+  .event--lavender {
+    --event-bg: #EDE3F7; --event-border: #C6ADDF;
+    --event-ink: #523269; --event-text: #5B496B;
+    --event-shadow: rgba(82, 50, 105, .18);
   }
   .event--red {
     --event-bg: #FAD5D2; --event-border: #D9948D;
